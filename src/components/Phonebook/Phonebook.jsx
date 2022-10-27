@@ -1,35 +1,39 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
+import Form from 'components/Form/Form';
+import css from '../Phonebook/Phonebook.module.css';
 class Phonebook extends React.Component {
   state = {
     contacts: [],
     filter: '',
-    name: '',
-    number: '',
   };
+
   renderContacts = () => {
-    return this.state.contacts.map(nama => <li key={nanoid()}>{nama}</li>);
+    return this.state.contacts.map(nama => (
+      <li key={nanoid()}>
+        {nama.names} : {nama.numbers}
+        <button>Delete</button>
+      </li>
+    ));
   };
-  handleInput = e => {
-    this.setState({ name: e.target.value });
+  addItem = (names, numbers) => {
+    this.setState({
+      contacts: [...this.state.contacts, { names: names, numbers: numbers }],
+    });
+    console.log(names, numbers);
   };
-  addItem = item => {
-    // console.log('Phonebook ~ item', item);
-    this.setState({ contacts: [...this.state.contacts, item] });
+  formSubmitChanging = data => {
+    this.setState(this.addItem(data.name, data.number));
   };
+
   render() {
     return (
       <>
-        <div>
-          <input
-            onChange={this.handleInput}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          />
-          <button onClick={() => this.addItem(this.state.name)}>Add</button>
+        <div className={css.div_form}>
+          <h1>Phonebook</h1>
+          <Form onSubmit={this.formSubmitChanging} />
         </div>
+        <h2>Contacts</h2>
         <ul>{this.renderContacts()}</ul>
       </>
     );
