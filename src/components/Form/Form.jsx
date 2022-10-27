@@ -54,7 +54,9 @@ class Form extends React.Component {
           />
         </label>
 
-        <button type="submit">Add contacts</button>
+        <button type="submit" className={css.big_button}>
+          Add contacts
+        </button>
       </form>
     );
   }

@@ -1,3 +1,17 @@
+:root {
+  --backgroundColor: rgba(246, 241, 209);
+  --colorShadeA: rgb(106, 163, 137);
+  --colorShadeB: rgb(121, 186, 156);
+  --colorShadeC: rgb(150, 232, 195);
+  --colorShadeD: rgb(187, 232, 211);
+  --colorShadeE: rgb(205, 255, 232);
+}
 .form {
   display: table-caption;
+}
+button.big_button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  border-radius: 5px;
 }

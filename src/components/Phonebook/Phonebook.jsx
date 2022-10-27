@@ -11,7 +11,7 @@ class Phonebook extends React.Component {
   renderContacts = () => {
     return this.state.contacts.map(nama => (
       <li key={nanoid()}>
-        {nama.names} : {nama.numbers}
+        <span>{nama.names}</span>:<span>{nama.numbers}</span>
         <button>Delete</button>
       </li>
     ));
@@ -33,8 +33,14 @@ class Phonebook extends React.Component {
           <h1>Phonebook</h1>
           <Form onSubmit={this.formSubmitChanging} />
         </div>
-        <h2>Contacts</h2>
-        <ul>{this.renderContacts()}</ul>
+        {this.state.contacts.length ? (
+          <>
+            <h2>Contacts</h2>
+            <ul>{this.renderContacts()}</ul>
+          </>
+        ) : (
+          <h3>Write contact</h3>
+        )}
       </>
     );
   }
