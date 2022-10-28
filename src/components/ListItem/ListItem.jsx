@@ -1,9 +1,10 @@
 import React from 'react';
+import css from '../ListItem/ListItem.module.css';
 const ListItem = ({ contacts, onDelete }) => {
   return (
     <ul>
       {contacts.map(({ id, names, numbers }) => (
-        <li key={id}>
+        <li key={id} className={css.item}>
           <span>{names}</span> : <span>{numbers}</span>
           <button className="{css.btn_item}" onClick={() => onDelete(id)}>
             Delete

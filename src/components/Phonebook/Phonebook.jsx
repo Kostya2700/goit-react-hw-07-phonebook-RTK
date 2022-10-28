@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import Form from 'components/Form/Form';
 import css from '../Phonebook/Phonebook.module.css';
 import Filter from 'components/Filter/Filter';
-import ListItem from 'ListItem/ListItem';
+import ListItem from 'components/ListItem/ListItem';
 class Phonebook extends React.Component {
   state = {
     contacts: [
