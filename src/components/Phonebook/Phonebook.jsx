@@ -10,14 +10,11 @@ class Phonebook extends React.Component {
     filter: '',
   };
 
-  // renderContacts = () => {
-  //   return this.state.contacts.map(contact => (
-  //     <li key={contact.id}>
-  //       <span>{contact.names}</span>:<span>{contact.numbers}</span>
-  //       <button className={css.btn_item}>Delete</button>
-  //     </li>
-  //   ));
-  // };
+  deleteContact = id => {
+    this.setState(prev => ({
+      contacts: prev.contacts.filter(contact => contact.id !== id),
+    }));
+  };
   addItem = (names, numbers) => {
     this.setState({
       contacts: [
@@ -35,9 +32,6 @@ class Phonebook extends React.Component {
   };
 
   render() {
-    // const filterContact = this.state.contacts.filter(name =>
-    //   name.name.toLowerCase().includes(this.state.filter.toLowerCase())
-    // );
     return (
       <>
         <div className={css.div_form}>
@@ -48,7 +42,10 @@ class Phonebook extends React.Component {
           <>
             <h2>Contacts</h2>
             <Filter value={this.state.filter} onChange={this.changeFilter} />
-            <ListItem contacts={this.state.contacts} />
+            <ListItem
+              contacts={this.state.contacts}
+              onDelete={this.deleteContact}
+            />
           </>
         ) : (
           <h3>Write contact</h3>
