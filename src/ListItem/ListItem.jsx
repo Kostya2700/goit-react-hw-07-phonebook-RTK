@@ -14,6 +14,3 @@ const ListItem = ({ contacts, onDelete }) => {
   );
 };
 export default ListItem;
-// const filterContact = this.state.contacts.filter(name =>
-//   name.toLowerCase().includes(this.state.filter.toLowerCase())
-// );
