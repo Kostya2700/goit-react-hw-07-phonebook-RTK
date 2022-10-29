@@ -1,5 +1,6 @@
 import React from 'react';
 import css from '../ListItem/ListItem.module.css';
+import PropTypes from 'prop-types';
 const ListItem = ({ contacts, onDelete }) => {
   return (
     <ul>
@@ -15,3 +16,7 @@ const ListItem = ({ contacts, onDelete }) => {
   );
 };
 export default ListItem;
+ListItem.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};

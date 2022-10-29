@@ -4,13 +4,14 @@ import Form from 'components/Form/Form';
 import css from '../Phonebook/Phonebook.module.css';
 import Filter from 'components/Filter/Filter';
 import ListItem from 'components/ListItem/ListItem';
+import { Title } from 'components/Title/Title';
 class Phonebook extends React.Component {
   state = {
     contacts: [
-      { id: 'id-1', names: 'Rosie Simpson', numbers: '459-12-56' },
-      { id: 'id-2', names: 'Hermione Kline', numbers: '443-89-12' },
-      { id: 'id-3', names: 'Eden Clements', numbers: '645-17-79' },
-      { id: 'id-4', names: 'Annie Copeland', numbers: '227-91-26' },
+      { id: nanoid(), names: 'Rosie Simpson', numbers: '459-12-56' },
+      { id: nanoid(), names: 'Hermione Kline', numbers: '443-89-12' },
+      { id: nanoid(), names: 'Eden Clements', numbers: '645-17-79' },
+      { id: nanoid(), names: 'Annie Copeland', numbers: '227-91-26' },
     ],
     filter: '',
   };
@@ -32,7 +33,6 @@ class Phonebook extends React.Component {
         id: nanoid(),
         names,
         numbers,
-        completed: false,
       };
 
       this.setState(({ contacts }) => ({
@@ -57,17 +57,18 @@ class Phonebook extends React.Component {
     return (
       <>
         <div className={css.div_form}>
-          <h1>Phonebook</h1>
+          <Title title={'Phonebook'} />
+
           <Form onSubmit={this.formSubmitChanging} />
         </div>
         {this.state.contacts.length ? (
           <>
-            <h2>Contacts</h2>
+            <Title title={'Contacts'} />
             <Filter value={this.state.filter} onChange={this.changeFilter} />
             <ListItem contacts={filterContact} onDelete={this.deleteContact} />
           </>
         ) : (
-          <h3>Write contact</h3>
+          <Title title={'Write contact'} />
         )}
       </>
     );
