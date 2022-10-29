@@ -16,10 +16,6 @@ class Form extends React.Component {
     this.props.onSubmit(this.state);
     this.reset();
   };
-  //   addItem = item => {
-  //     // console.log('Phonebook ~ item', item);
-  //     this.setState({ contacts: [...this.state.contacts, item] });
-  //   };
   reset = () => {
     this.setState({
       name: '',
@@ -62,4 +58,3 @@ class Form extends React.Component {
   }
 }
 export default Form;
-// onClick={() => this.addItem(this.state.name)}

@@ -21,13 +21,24 @@ class Phonebook extends React.Component {
     }));
   };
   addItem = (names, numbers) => {
-    this.setState({
-      contacts: [
-        ...this.state.contacts,
-        { names: names, numbers: numbers, id: nanoid() },
-      ],
-    });
-    console.log(names, numbers);
+    const normalizedFilter = names.toLowerCase();
+    const checkByName = this.state.contacts.find(
+      contact => contact.names.toLowerCase() === normalizedFilter
+    );
+    if (checkByName) {
+      alert(`${names} is already in contacts`);
+    } else {
+      const contact = {
+        id: nanoid(),
+        names,
+        numbers,
+        completed: false,
+      };
+
+      this.setState(({ contacts }) => ({
+        contacts: [contact, ...contacts],
+      }));
+    }
   };
   formSubmitChanging = data => {
     this.setState(this.addItem(data.name, data.number));
@@ -35,11 +46,14 @@ class Phonebook extends React.Component {
   changeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
-
-  render() {
-    const filterContact = this.state.contacts.filter(contact =>
+  getFilterContact = () => {
+    return this.state.contacts.filter(contact =>
       contact.names.toLowerCase().includes(this.state.filter.toLowerCase())
     );
+  };
+
+  render() {
+    const filterContact = this.getFilterContact();
     return (
       <>
         <div className={css.div_form}>
