@@ -7,12 +7,7 @@ import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
 class Phonebook extends React.Component {
   state = {
-    contacts: [
-      { id: nanoid(), names: 'Rosie Simpson', numbers: '459-12-56' },
-      { id: nanoid(), names: 'Hermione Kline', numbers: '443-89-12' },
-      { id: nanoid(), names: 'Eden Clements', numbers: '645-17-79' },
-      { id: nanoid(), names: 'Annie Copeland', numbers: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -28,6 +23,7 @@ class Phonebook extends React.Component {
     );
     if (checkByName) {
       alert(`${names} is already in contacts`);
+      return;
     } else {
       const contact = {
         id: nanoid(),
@@ -51,6 +47,18 @@ class Phonebook extends React.Component {
       contact.names.toLowerCase().includes(this.state.filter.toLowerCase())
     );
   };
+  componentDidMount() {
+    const local = localStorage.getItem('contacts');
+    const localParse = JSON.parse(local);
+    if (localParse) {
+      this.setState({ contacts: localParse });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   render() {
     const filterContact = this.getFilterContact();
