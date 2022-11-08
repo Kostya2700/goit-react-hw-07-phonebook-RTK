@@ -7,7 +7,9 @@ import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
 import { useState } from 'react';
 function Phonebook() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() =>
+    JSON.parse(window.localStorage.getItem('contacts') ?? [])
+  );
   const [filter, setFilter] = useState('');
 
   const deleteContact = id => {
@@ -31,7 +33,7 @@ function Phonebook() {
         names,
         numbers,
       };
-      // console.log(contact);
+
       setContacts([contact, ...contacts]);
       // this.setState(({ contacts }) => ({
       //   contacts: [contact, ...contacts],
@@ -51,15 +53,15 @@ function Phonebook() {
       contact.names.toLowerCase().includes(filter.toLowerCase())
     );
   };
-  useEffect(() => {
-    console.log('first');
-    const local = localStorage.getItem('contacts');
-    const localParse = JSON.parse(local);
-    console.log(localParse);
-    if (localParse) {
-      setContacts(localParse);
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log('first');
+  //   const local = localStorage.getItem('contacts');
+  //   const localParse = JSON.parse(local);
+  //   console.log(localParse);
+  //   if (localParse) {
+  //     setContacts(localParse);
+  //   }
+  // }, []);
   // componentDidMount() {
   //   const local = localStorage.getItem('contacts');
   //   const localParse = JSON.parse(local);
@@ -68,6 +70,7 @@ function Phonebook() {
   //   }
   // }
   useEffect(() => {
+    console.log(contacts);
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
   // componentDidUpdate(prevProps, prevState) {
