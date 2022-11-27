@@ -2,6 +2,7 @@ import React from 'react';
 import css from '../Form/Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts, stateContacts } from 'redux/contactSlice';
+import { nanoid } from 'nanoid';
 
 function Form() {
   const dispatch = useDispatch();
@@ -19,7 +20,13 @@ function Form() {
       alert('this contacts is written in phonebook');
       return;
     }
-    dispatch(addContacts(forms.name.value, forms.number.value));
+    dispatch(
+      addContacts({
+        name: forms.name.value,
+        number: forms.number.value,
+        id: nanoid(),
+      })
+    );
     e.currentTarget.reset();
   };
 
