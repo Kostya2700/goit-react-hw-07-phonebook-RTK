@@ -1,31 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import css from '../Form/Form.module.css';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts } from 'redux/contactSlice';
 
-function Form({ onSubmit }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
-  const handleChange = e => {
-    switch (e.currentTarget.name) {
-      case 'name':
-        setName(e.currentTarget.value);
-        break;
-      case 'number':
-        setNumber(e.currentTarget.value);
-        break;
-      default:
-        return;
-    }
-  };
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
+function Form() {
+  const dispatch = useDispatch();
+  const arrContacts = useSelector(state => state.contacts.array);
   const formSubmit = e => {
     e.preventDefault();
-    onSubmit(name, number);
-    reset();
+    const forms = e.currentTarget.elements;
+    const normalizedFilter = forms.name.value.toLowerCase();
+
+    const checkByName = arrContacts.find(
+      contact => contact.name.toLowerCase() === normalizedFilter
+    );
+    if (checkByName) {
+      e.currentTarget.reset();
+      alert('this contacts is written in phonebook');
+      return;
+    }
+    dispatch(addContacts(forms.name.value, forms.number.value));
+    e.currentTarget.reset();
   };
 
   return (
@@ -33,8 +28,6 @@ function Form({ onSubmit }) {
       <label>
         Name
         <input
-          onChange={handleChange}
-          value={name}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -45,8 +38,6 @@ function Form({ onSubmit }) {
       <label>
         Number
         <input
-          onChange={handleChange}
-          value={number}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -63,6 +54,3 @@ function Form({ onSubmit }) {
 }
 
 export default Form;
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

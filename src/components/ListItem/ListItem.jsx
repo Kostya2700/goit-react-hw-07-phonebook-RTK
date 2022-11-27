@@ -1,13 +1,29 @@
 import React from 'react';
 import css from '../ListItem/ListItem.module.css';
-import PropTypes from 'prop-types';
-const ListItem = ({ contacts, onDelete }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContacts } from 'redux/contactSlice';
+import { filter } from 'redux/filterSlice';
+console.log('filter', filter().payload);
+const ListItem = () => {
+  const arrContacts = useSelector(state => state.contacts.array);
+  const filterValue = useSelector(state => state.filter.value);
+  const dispatch = useDispatch();
+
+  const getFilterContact = () => {
+    return arrContacts.filter(contact => {
+      return contact.name.toLowerCase().includes(filterValue.toLowerCase());
+    });
+  };
+  const filterArrayContacts = getFilterContact();
   return (
     <ul>
-      {contacts.map(({ id, names, numbers }) => (
+      {filterArrayContacts.map(({ id, name, number }) => (
         <li key={id} className={css.item}>
-          <span>{names}</span> : <span>{numbers}</span>
-          <button className="{css.btn_item}" onClick={() => onDelete(id)}>
+          <span>{name}</span> : <span>{number}</span>
+          <button
+            className="{css.btn_item}"
+            onClick={() => dispatch(deleteContacts())}
+          >
             Delete
           </button>
         </li>
@@ -16,7 +32,3 @@ const ListItem = ({ contacts, onDelete }) => {
   );
 };
 export default ListItem;
-ListItem.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
