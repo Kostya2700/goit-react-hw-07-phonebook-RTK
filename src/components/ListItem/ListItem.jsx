@@ -1,10 +1,11 @@
 import React from 'react';
 import css from '../ListItem/ListItem.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContacts } from 'redux/contactSlice';
+import { deleteContacts, stateContacts } from 'redux/contactSlice';
+import { stateFilter } from 'redux/filterSlice';
 const ListItem = () => {
-  const arrContacts = useSelector(state => state.contacts.array);
-  const filterValue = useSelector(state => state.filter.value);
+  const arrContacts = useSelector(stateContacts);
+  const filterValue = useSelector(stateFilter);
   const dispatch = useDispatch();
 
   const getFilterContact = () => {
@@ -21,7 +22,7 @@ const ListItem = () => {
           <span>{name}</span> : <span>{number}</span>
           <button
             className="{css.btn_item}"
-            onClick={() => dispatch(deleteContacts())}
+            onClick={() => dispatch(deleteContacts(id))}
           >
             Delete
           </button>

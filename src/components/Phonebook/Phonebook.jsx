@@ -5,9 +5,10 @@ import Filter from 'components/Filter/Filter';
 import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
 import { useSelector } from 'react-redux';
+import { stateContacts } from 'redux/contactSlice';
 
 function Phonebook() {
-  const arrContacts = useSelector(state => state.contacts.array);
+  const arrContacts = useSelector(stateContacts);
   return (
     <>
       <div className={css.div_form}>
