@@ -6,15 +6,8 @@ import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
 import { useSelector } from 'react-redux';
 
-// const KEYLOCAL = 'contacts';
 function Phonebook() {
   const arrContacts = useSelector(state => state.contacts.array);
-
-  // const getFilterContact = () => {
-  //   return contacts.filter(contact =>
-  //     contact.names.toLowerCase().includes(filter.toLowerCase())
-  //   );
-  // };
   return (
     <>
       <div className={css.div_form}>
