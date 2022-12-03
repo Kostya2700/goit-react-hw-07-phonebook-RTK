@@ -1,6 +1,8 @@
 import React from 'react';
 import css from '../Form/Form.module.css';
 import { useAddContactsMutation, useGetContactsQuery } from 'redux/contactsRTK';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 function Form() {
   const { data } = useGetContactsQuery();
@@ -24,7 +26,7 @@ function Form() {
       name: forms.name.value,
       phone: forms.number.value,
     });
-    console.log('contacts is added');
+    toast('contacts is added in phonebook');
     e.currentTarget.reset();
   };
 

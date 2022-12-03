@@ -5,12 +5,14 @@ import Filter from 'components/Filter/Filter';
 import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
 import { useGetContactsQuery } from 'redux/contactsRTK';
+import { ToastContainer } from 'react-toastify';
 
 function Phonebook() {
-  const { data, error, isLoading } = useGetContactsQuery();
+  const { data, isError, isLoading } = useGetContactsQuery();
   return (
     <>
       <div className={css.div_form}>
+        <ToastContainer />
         <Title title={'Phonebook'} />
 
         <Form />
@@ -19,7 +21,7 @@ function Phonebook() {
         <>
           <Title title={'Contacts'} />
           <Filter />
-          {isLoading && !error && <b>Request in progress...</b>}
+          {isLoading && !isError && <b>Request in progress...</b>}
           <ListItem />
         </>
       ) : (
