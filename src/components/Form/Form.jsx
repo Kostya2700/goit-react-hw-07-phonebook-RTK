@@ -1,12 +1,12 @@
 import React from 'react';
 import css from '../Form/Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { stateContacts } from 'redux/contactSlice';
+import { getStateContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 
 function Form() {
   const dispatch = useDispatch();
-  const arrContacts = useSelector(stateContacts);
+  const arrContacts = useSelector(getStateContacts);
   const formSubmit = e => {
     e.preventDefault();
     const forms = e.currentTarget.elements;

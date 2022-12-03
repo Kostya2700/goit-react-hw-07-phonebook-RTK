@@ -5,11 +5,13 @@ import Filter from 'components/Filter/Filter';
 import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
 import { useDispatch, useSelector } from 'react-redux';
-import { stateContacts } from 'redux/contactSlice';
+import { getError, getIsLoading, getStateContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 
 function Phonebook() {
-  const arrContacts = useSelector(stateContacts);
+  const arrContacts = useSelector(getStateContacts);
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
   const dispatch = useDispatch();
   // const isLoading = useSelector(getIsLoading);
   // const error = useSelector(getError);
@@ -27,7 +29,7 @@ function Phonebook() {
         <>
           <Title title={'Contacts'} />
           <Filter />
-          {/* {isLoading && !error && <b>Request in progress...</b>} */}
+          {isLoading && !error && <b>Request in progress...</b>}
           <ListItem />
         </>
       ) : (

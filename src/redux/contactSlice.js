@@ -48,4 +48,3 @@ const contactsSlice = createSlice({
 
 export const contactsReducer = contactsSlice.reducer;
 //selectors
-export const stateContacts = state => state.contacts.items;

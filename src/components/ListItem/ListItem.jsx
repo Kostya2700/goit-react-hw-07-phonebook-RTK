@@ -1,12 +1,11 @@
 import React from 'react';
 import css from '../ListItem/ListItem.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { stateContacts } from 'redux/contactSlice';
-import { stateFilter } from 'redux/filterSlice';
 import { deleteContact } from 'redux/operations';
+import { getStateContacts, getStateFilter } from 'redux/selectors';
 const ListItem = () => {
-  const arrContacts = useSelector(stateContacts);
-  const filterValue = useSelector(stateFilter);
+  const arrContacts = useSelector(getStateContacts);
+  const filterValue = useSelector(getStateFilter);
   const dispatch = useDispatch();
 
   const getFilterContact = () => {
