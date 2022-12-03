@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Form from 'components/Form/Form';
 import css from '../Phonebook/Phonebook.module.css';
 import Filter from 'components/Filter/Filter';
 import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { stateContacts } from 'redux/contactSlice';
+import { fetchContacts } from 'redux/operations';
 
 function Phonebook() {
   const arrContacts = useSelector(stateContacts);
+  const dispatch = useDispatch();
+  // const isLoading = useSelector(getIsLoading);
+  // const error = useSelector(getError);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   return (
     <>
       <div className={css.div_form}>
@@ -20,6 +27,7 @@ function Phonebook() {
         <>
           <Title title={'Contacts'} />
           <Filter />
+          {/* {isLoading && !error && <b>Request in progress...</b>} */}
           <ListItem />
         </>
       ) : (

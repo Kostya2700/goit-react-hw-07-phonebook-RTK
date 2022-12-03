@@ -1,8 +1,8 @@
 import React from 'react';
 import css from '../Form/Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContacts, stateContacts } from 'redux/contactSlice';
-import { nanoid } from 'nanoid';
+import { stateContacts } from 'redux/contactSlice';
+import { addContact } from 'redux/operations';
 
 function Form() {
   const dispatch = useDispatch();
@@ -21,10 +21,9 @@ function Form() {
       return;
     }
     dispatch(
-      addContacts({
+      addContact({
         name: forms.name.value,
-        number: forms.number.value,
-        id: nanoid(),
+        phone: forms.number.value,
       })
     );
     e.currentTarget.reset();
