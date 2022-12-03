@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Form from 'components/Form/Form';
 import css from '../Phonebook/Phonebook.module.css';
 import Filter from 'components/Filter/Filter';
 import ListItem from 'components/ListItem/ListItem';
 import { Title } from 'components/Title/Title';
-import { useDispatch, useSelector } from 'react-redux';
-import { getError, getIsLoading, getStateContacts } from 'redux/selectors';
-import { fetchContacts } from 'redux/operations';
+import { useGetContactsQuery } from 'redux/contactsRTK';
 
 function Phonebook() {
-  const arrContacts = useSelector(getStateContacts);
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
-  const dispatch = useDispatch();
-  // const isLoading = useSelector(getIsLoading);
-  // const error = useSelector(getError);
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const { data, error, isLoading } = useGetContactsQuery();
   return (
     <>
       <div className={css.div_form}>
@@ -25,7 +15,7 @@ function Phonebook() {
 
         <Form />
       </div>
-      {arrContacts.length ? (
+      {data?.length ? (
         <>
           <Title title={'Contacts'} />
           <Filter />

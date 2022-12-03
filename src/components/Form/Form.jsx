@@ -1,18 +1,17 @@
 import React from 'react';
 import css from '../Form/Form.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { getStateContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { useAddContactsMutation, useGetContactsQuery } from 'redux/contactsRTK';
 
 function Form() {
-  const dispatch = useDispatch();
-  const arrContacts = useSelector(getStateContacts);
+  const { data } = useGetContactsQuery();
+  const [addContact] = useAddContactsMutation();
+
   const formSubmit = e => {
     e.preventDefault();
     const forms = e.currentTarget.elements;
     const normalizedFilter = forms.name.value.toLowerCase();
 
-    const checkByName = arrContacts.find(
+    const checkByName = data.find(
       contact => contact.name.toLowerCase() === normalizedFilter
     );
     if (checkByName) {
@@ -20,12 +19,12 @@ function Form() {
       alert('this contacts is written in phonebook');
       return;
     }
-    dispatch(
-      addContact({
-        name: forms.name.value,
-        phone: forms.number.value,
-      })
-    );
+
+    addContact({
+      name: forms.name.value,
+      phone: forms.number.value,
+    });
+    console.log('contacts is added');
     e.currentTarget.reset();
   };
 

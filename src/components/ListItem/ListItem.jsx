@@ -1,12 +1,15 @@
 import React from 'react';
 import css from '../ListItem/ListItem.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/operations';
-import { getStateContacts, getStateFilter } from 'redux/selectors';
+import { useSelector } from 'react-redux';
+import { getStateFilter } from 'redux/selectors';
+import {
+  useDeleteContactsMutation,
+  useGetContactsQuery,
+} from 'redux/contactsRTK';
 const ListItem = () => {
-  const arrContacts = useSelector(getStateContacts);
   const filterValue = useSelector(getStateFilter);
-  const dispatch = useDispatch();
+  const { data: arrContacts } = useGetContactsQuery();
+  const [deleteContacts] = useDeleteContactsMutation();
 
   const getFilterContact = () => {
     if (filterValue === '') return arrContacts;
@@ -23,7 +26,7 @@ const ListItem = () => {
           <button
             className="{css.btn_item}"
             onClick={() => {
-              dispatch(deleteContact(id));
+              deleteContacts(id);
             }}
           >
             Delete
